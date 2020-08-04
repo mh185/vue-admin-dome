@@ -6,7 +6,7 @@
         <el-input v-model="formdata.username"></el-input>
       </el-form-item>
       <el-form-item label="密码">
-        <el-input v-model="formdata.password"></el-input>
+        <el-input type="password" v-model="formdata.password"></el-input>
       </el-form-item>
       <el-button @click.prevent="handleLogin()" class="login-btn" type="primary">登录</el-button>
     </el-form>
@@ -27,7 +27,7 @@ export default {
     //登录请求
     handleLogin() {
       this.$http.post("login", this.formdata).then((res) => {
-        // console.log(res);
+        console.log(res);
         const {
           data,
           meta: { msg, status },
@@ -35,8 +35,10 @@ export default {
 
         if (status === 200) {
           //登录成功
+          // 0. 保存token
+          localStorage.setItem("token", data.token);
           // 1. 跳转home
-          // this.router.push({ name: "home" });
+          this.$router.push({ name: "home" });
           //提示成功
           this.$message.success(msg);
         } else {
