@@ -18,7 +18,12 @@
       <el-aside class="aside" width="200px">
         <!-- 侧边栏导航 -->
         <!-- 开启路由模式为true -->
-        <el-menu :router="true" :unique-opened="true">
+        <el-menu
+          :unique-opened="true"
+          :router="true"
+          default-active="2"
+          class="el-menu-vertical-demo"
+        >
           <el-submenu index="1">
             <template slot="title">
               <i class="el-icon-location"></i>
@@ -143,7 +148,7 @@ export default {
   background-color: #373f41;
 }
 .aside {
-  background-color: #d3dce6;
+  background-color: #e9eef3;
 }
 .main {
   background-color: #e9eef3;
@@ -159,8 +164,8 @@ export default {
   text-decoration: none;
 }
 .loginout .btn {
-  width: 65px;
-  height: 45px;
+  width: 70px;
+  height: 40px;
   background-color: #909399;
   border: 1px solid black;
   border-radius: 5px;
