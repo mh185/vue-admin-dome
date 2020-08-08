@@ -148,7 +148,7 @@ export default {
   background-color: #373f41;
 }
 .aside {
-  background-color: #e9eef3;
+  background-color: #373f41;
 }
 .main {
   background-color: #e9eef3;
