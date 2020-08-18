@@ -2,11 +2,7 @@
   <el-card class="box-card">
     <!-- 面包屑 -->
     <!-- 首页 用户管理 用户列表 -->
-    <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>用户管理</el-breadcrumb-item>
-      <el-breadcrumb-item>用户列表</el-breadcrumb-item>
-    </el-breadcrumb>
+    <my-bread level1="用户管理" level2="用户列表"></my-bread>
     <!-- 搜索 -->
     <el-row class="searchRow">
       <el-col>
@@ -214,6 +210,17 @@ export default {
         `users/${user.id}/state/${user.mg_state}`
       );
       console.log(res);
+      if (res.data.meta.status === 200) {
+        this.$message({
+          type: "success",
+          message: res.data.meta.msg,
+        });
+      } else {
+        this.$message({
+          type: "error",
+          message: res.data.meta.msg,
+        });
+      }
     },
     //编辑用户 - 发送请求
     async editUser() {
@@ -246,6 +253,7 @@ export default {
           const res = await this.$http.delete(`users/${userId}`);
           console.log(res);
           if (res.data.meta.status === 200) {
+            //删除用户后自动跳转到第一页
             this.pagenum = 1;
             //更新视图
             this.getUserList();
@@ -268,7 +276,7 @@ export default {
       // 2.关闭对话框
       this.dialogFormVisibleAdd = false;
       this.$http.post("users", this.form).then((res) => {
-        console.log(res);
+        // console.log(res);
         const {
           meta: { status, msg },
           data,
@@ -318,10 +326,7 @@ export default {
       // pagenum 当前页码  不能为空
       // pagesize 每页显示条数  不能为空
 
-      //需要授权的 API ，必须在请求头中使用 `Authorization` 字段提供 `token` 令牌
-      const AUTH_TOKEN = localStorage.getItem("token");
-      this.$http.defaults.headers.common["Authorization"] = AUTH_TOKEN;
-
+      // console.log("发起请求");
       this.$http
         .get("/users", {
           params: {

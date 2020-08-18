@@ -3,8 +3,9 @@
     <el-header class="header">
       <el-row>
         <el-col :span="23" class="middle">
+          <img class="img" src="./logo2.png" />
           <div class="grid-content bg-purple-light">
-            <h3>电商后台管理系统</h3>
+            <h3>哈哈哈后台管理系统</h3>
           </div>
         </el-col>
         <el-col :span="1" class="loginout">
@@ -26,7 +27,7 @@
         >
           <el-submenu index="1">
             <template slot="title">
-              <i class="el-icon-location"></i>
+              <i class="el-icon-user-solid"></i>
               <span>用户管理</span>
             </template>
             <el-menu-item-group>
@@ -39,17 +40,17 @@
           <!-- 2 -->
           <el-submenu index="2">
             <template slot="title">
-              <i class="el-icon-location"></i>
+              <i class="el-icon-s-home"></i>
               <span>权限管理</span>
             </template>
             <el-menu-item-group>
-              <el-menu-item index="2-1">
+              <el-menu-item index="role">
                 <i class="el-icon-location"></i>
                 <span>角色列表</span>
               </el-menu-item>
             </el-menu-item-group>
             <el-menu-item-group>
-              <el-menu-item index="2-2">
+              <el-menu-item index="rights">
                 <i class="el-icon-location"></i>
                 <span>权限列表</span>
               </el-menu-item>
@@ -58,23 +59,23 @@
           <!-- 3 -->
           <el-submenu index="3">
             <template slot="title">
-              <i class="el-icon-location"></i>
+              <i class="el-icon-s-cooperation"></i>
               <span>商城管理</span>
             </template>
             <el-menu-item-group>
-              <el-menu-item index="3-1">
+              <el-menu-item index="list">
                 <i class="el-icon-location"></i>
                 <span>商品管理</span>
               </el-menu-item>
             </el-menu-item-group>
             <el-menu-item-group>
-              <el-menu-item index="3-2">
+              <el-menu-item index="params">
                 <i class="el-icon-location"></i>
                 <span>分类参数</span>
               </el-menu-item>
             </el-menu-item-group>
             <el-menu-item-group>
-              <el-menu-item index="3-3">
+              <el-menu-item index="cate">
                 <i class="el-icon-location"></i>
                 <span>商品分类</span>
               </el-menu-item>
@@ -83,11 +84,11 @@
           <!-- 4 -->
           <el-submenu index="4">
             <template slot="title">
-              <i class="el-icon-location"></i>
+              <i class="el-icon-s-order"></i>
               <span>订单管理</span>
             </template>
             <el-menu-item-group>
-              <el-menu-item index="4-1">
+              <el-menu-item index="order">
                 <i class="el-icon-location"></i>
                 <span>订单列表</span>
               </el-menu-item>
@@ -96,11 +97,11 @@
           <!-- 5 -->
           <el-submenu index="5">
             <template slot="title">
-              <i class="el-icon-location"></i>
+              <i class="el-icon-s-platform"></i>
               <span>数据统计</span>
             </template>
             <el-menu-item-group>
-              <el-menu-item index="5-1">
+              <el-menu-item index="reports">
                 <i class="el-icon-location"></i>
                 <span>数据报表</span>
               </el-menu-item>
@@ -109,6 +110,7 @@
         </el-menu>
       </el-aside>
       <el-main class="main">
+        <!-- 容器 -->
         <router-view></router-view>
       </el-main>
     </el-container>
@@ -140,7 +142,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .container {
   height: 100%;
 }
@@ -174,5 +176,12 @@ export default {
 }
 .loginout .btn:hover {
   background-color: #dcdfe6;
+}
+.img {
+  width: 50px;
+  height: 50px;
+  float: left;
+  margin-top: 5px;
+  margin-left: 30px;
 }
 </style>

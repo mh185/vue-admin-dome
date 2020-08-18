@@ -18,8 +18,8 @@ export default {
   data() {
     return {
       formdata: {
-        username: "",
-        password: "",
+        username: "admin",
+        password: "123456",
       },
     };
   },
@@ -38,7 +38,7 @@ export default {
           // 0. 保存token
           localStorage.setItem("token", data.token);
           // 1. 跳转home
-          this.$router.push({ name: "home" });
+          this.$router.push({ path: "/" });
           //提示成功
           this.$message.success(msg);
         } else {
