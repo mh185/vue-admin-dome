@@ -1,6 +1,6 @@
 <template>
   <el-card>
-    <my-bread level1="商城管理" level2="商品管理"></my-bread>
+    <my-bread level1="商品管理" level2="商品列表"></my-bread>
     <!-- 搜索 -->
     <el-row class="searchRow">
       <el-col>
@@ -13,29 +13,41 @@
         >
           <el-button slot="append" icon="el-icon-search" @click="searchUser()"></el-button>
         </el-input>
-        <el-button @click="showAddUserDia()" type="primary" class="searchBtn">添加用户</el-button>
+        <el-button @click="$router.push({path:'goodsadd'})" type="primary" class="searchBtn">添加商品</el-button>
       </el-col>
     </el-row>
     <!-- 表格数据 -->
-    <el-table :data="goodsList" border stripe class="tablestyle">
+    <el-table :data="goodsList" border stripe class="tablestyle" height="400">
       <el-table-column type="index"></el-table-column>
       <el-table-column label="商品名称" prop="goods_name"></el-table-column>
       <el-table-column label="商品价格(元)" prop="goods_price" width="100px"></el-table-column>
       <el-table-column label="商品重量" prop="goods_weight" width="70px"></el-table-column>
       <el-table-column label="商品数量" prop="goods_number" width="70px"></el-table-column>
-      <el-table-column label="创建时间" prop="add_time" width="140px"></el-table-column>
-      <el-table-column label="操作" width="130px">
+      <el-table-column label="创建时间" width="140px">{{add_time|dateFormat}}</el-table-column>
+      <el-table-column label="操作" width="200px">
         <template slot-scope="scope">
-          <el-button type="primary" icon="el-icon-edit" size="mini"></el-button>
+          <el-button type="primary" icon="el-icon-edit" size="mini">修改</el-button>
           <el-button
             type="danger"
             icon="el-icon-delete"
             size="mini"
             @click="removeById(scope.row.goods_id)"
-          ></el-button>
+          >删除</el-button>
         </template>
       </el-table-column>
     </el-table>
+
+    <!-- 分页 -->
+    <el-pagination
+      class="page"
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :current-page="pagenum"
+      :page-sizes="[10, 20, 40, 60]"
+      :page-size="2"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="total"
+    ></el-pagination>
   </el-card>
 </template>
 
@@ -45,7 +57,8 @@ export default {
     return {
       query: "",
       pagenum: 1,
-      pagesize: 4,
+      pagesize: 10,
+      total: -1,
       //商品列表
       goodsList: [],
     };
@@ -54,6 +67,48 @@ export default {
     this.getGoodList();
   },
   methods: {
+    //删除商品 - 发送请求
+    removeById(listId) {
+      this.$confirm("删除用户?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(async () => {
+          //发送删除请求 :id---->  用户id
+          const res = await this.$http.delete(`goods/${listId}`);
+          // console.log(res);
+          if (res.data.meta.status === 200) {
+            //删除用户后自动跳转到第一页
+            this.pagenum = 1;
+            //更新视图
+            this.getGoodList();
+            // 提示
+            this.$message({
+              type: "success",
+              message: res.data.meta.msg,
+            });
+          }
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除",
+          });
+        });
+    },
+    //分页得方法
+    handleSizeChange(val) {
+      console.log(`每页 ${val} 条`);
+      this.pagesize = val;
+      this.pagenum = 1;
+      this.getGoodList();
+    },
+    handleCurrentChange(val) {
+      console.log(`当前页: ${val}`);
+      this.pagenum = val;
+      this.getGoodList();
+    },
     //清空搜索框 重新获取数据
     loadUserList() {
       this.getGoodList();
@@ -73,8 +128,9 @@ export default {
           },
         })
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           this.goodsList = res.data.data.goods;
+          this.total = res.data.data.total;
         });
     },
   },

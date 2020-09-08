@@ -9,6 +9,7 @@ import MyBread from "@/components/cuscom/myBread.vue"
 import 'element-ui/lib/theme-chalk/index.css'
 import '@/assets/css/reset.css'
 import MyServerHttp from '@/plugins/https.js'
+import moment from 'moment'
 
 Vue.use(ElementUI)
 Vue.use(MyServerHttp)
@@ -18,6 +19,10 @@ Vue.component(MyBread.name, MyBread)
 
 Vue.config.productionTip = false
 
+//定义全局过滤器
+Vue.filter('dateFormat', function (dataStr, pattern = "YYYY-MM-DD HH:mm:ss") {
+  return moment(dataStr).format(pattern)
+})
 
 /* eslint-disable no-new */
 new Vue({

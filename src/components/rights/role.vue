@@ -58,25 +58,22 @@
             plain
             type="primary"
             icon="el-icon-edit"
-            circle
             @click="showEditUserDia(scope.row)"
-          ></el-button>
+          >修改</el-button>
           <el-button
             size="mini"
             plain
             type="danger"
             icon="el-icon-delete"
-            circle
             @click="showDeleUserMsgBox(scope.row.id)"
-          ></el-button>
+          >删除</el-button>
           <el-button
             @click="showSetRightDia(scope.row)"
             size="mini"
             plain
             type="success"
             icon="el-icon-check"
-            circle
-          ></el-button>
+          >分配权限</el-button>
         </template>
       </el-table-column>
     </el-table>

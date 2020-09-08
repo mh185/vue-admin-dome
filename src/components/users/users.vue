@@ -25,7 +25,7 @@
       <el-table-column prop="email" label="邮箱" width="180"></el-table-column>
       <el-table-column prop="mobile" label="电话" width="180"></el-table-column>
       <el-table-column prop="role_name" label="角色" width="180"></el-table-column>
-      <el-table-column label="状态" width="180">
+      <el-table-column label="状态" width="100">
         <template slot-scope="scope">
           <el-switch
             @change="cheangeMgState(scope.row)"
@@ -42,25 +42,22 @@
             plain
             type="primary"
             icon="el-icon-edit"
-            circle
             @click="showEditUserDia(scope.row)"
-          ></el-button>
+          >修改</el-button>
           <el-button
             size="mini"
             plain
             type="danger"
             icon="el-icon-delete"
-            circle
             @click="showDeleUserMsgBox(scope.row.id)"
-          ></el-button>
+          >删除</el-button>
           <el-button
             @click="showSetUserRoleDia(scope.row)"
             size="mini"
             plain
             type="success"
             icon="el-icon-check"
-            circle
-          ></el-button>
+          >分配角色</el-button>
         </template>
       </el-table-column>
     </el-table>
