@@ -23,7 +23,7 @@
       <el-table-column label="商品价格(元)" prop="goods_price" width="100px"></el-table-column>
       <el-table-column label="商品重量" prop="goods_weight" width="70px"></el-table-column>
       <el-table-column label="商品数量" prop="goods_number" width="70px"></el-table-column>
-      <el-table-column label="创建时间" width="140px">{{add_time|dateFormat}}</el-table-column>
+      <el-table-column label="创建时间" prop="add_time" width="140px">{{add_time|dateFormat}}</el-table-column>
       <el-table-column label="操作" width="200px">
         <template slot-scope="scope">
           <el-button type="primary" icon="el-icon-edit" size="mini">修改</el-button>
@@ -55,10 +55,13 @@
 export default {
   data() {
     return {
+      // 查询
       query: "",
       pagenum: 1,
       pagesize: 10,
       total: -1,
+      //日期
+      add_time: "",
       //商品列表
       goodsList: [],
     };
@@ -131,6 +134,7 @@ export default {
           // console.log(res);
           this.goodsList = res.data.data.goods;
           this.total = res.data.data.total;
+          this.add_time = res.data.data.goods.add_time;
         });
     },
   },

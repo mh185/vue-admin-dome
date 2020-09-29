@@ -3,10 +3,21 @@
     <!-- 面包屑 -->
     <my-bread level1="商品管理" level2="商品列表"></my-bread>
     <!-- 提示 -->
-    <el-alert class="alert" title="添加商品信息" type="success" center show-icon></el-alert>
+    <el-alert
+      class="alert"
+      title="添加商品信息"
+      type="success"
+      center
+      show-icon
+    ></el-alert>
 
     <!-- 步骤条 -->
-    <el-steps :active="1*active" finish-status="success" simple style="margin-top: 20px">
+    <el-steps
+      :active="1 * active"
+      finish-status="success"
+      simple
+      style="margin-top: 20px"
+    >
       <el-step title="基本信息"></el-step>
       <el-step title="商品参数"></el-step>
       <el-step title="商品属性"></el-step>
@@ -18,10 +29,15 @@
       label-position="top"
       label-width="80px"
       :model="form"
-      style="height:400px;overflow:auto;"
+      style="height: 400px; overflow: auto"
     >
       <!-- 左侧tabs标签 -->
-      <el-tabs @tab-click="tabChange()" class="tabs" v-model="active" tab-position="left">
+      <el-tabs
+        @tab-click="tabChange()"
+        class="tabs"
+        v-model="active"
+        tab-position="left"
+      >
         <el-tab-pane name="1" label="基本信息">
           <el-form-item label="商品名称">
             <el-input v-model="form.goods_name"></el-input>
@@ -47,16 +63,29 @@
           </el-form-item>
         </el-tab-pane>
         <el-tab-pane name="2" label="商品参数">
-          <el-form-item :label="item.attr_name" v-for="(item,i) in arrDyparams" :key="i">
+          <el-form-item
+            :label="item.attr_name"
+            v-for="(item, i) in arrDyparams"
+            :key="i"
+          >
             <!-- 复选框组 -->
             <el-checkbox-group v-model="item.attr_vals">
-              <el-checkbox border v-for="(item2,i) in item.attr_vals" :key="i" :label="item2"></el-checkbox>
+              <el-checkbox
+                border
+                v-for="(item2, i) in item.attr_vals"
+                :key="i"
+                :label="item2"
+              ></el-checkbox>
             </el-checkbox-group>
           </el-form-item>
         </el-tab-pane>
         <el-tab-pane name="3" label="商品属性">
           <!-- 静态参数的数据 -->
-          <el-form-item :label="item.attr_name" v-for="(item,i) in arrStaticparams" :key="i">
+          <el-form-item
+            :label="item.attr_name"
+            v-for="(item, i) in arrStaticparams"
+            :key="i"
+          >
             <el-input v-model="item.attr_vals"></el-input>
           </el-form-item>
         </el-tab-pane>
@@ -73,14 +102,18 @@
               list-type="picture"
             >
               <el-button size="small" type="primary">点击上传</el-button>
-              <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+              <div slot="tip" class="el-upload__tip">
+                只能上传jpg/png文件，且不超过500kb
+              </div>
             </el-upload>
           </el-form-item>
         </el-tab-pane>
         <el-tab-pane name="5" label="商品内容">
           <el-form-item>
             <!-- 表单元素 -->
-            <el-button @click="addGoods()" type="primary">添加商品</el-button>
+            <el-button class="add" @click="addGoods()" type="primary"
+              >添加商品</el-button
+            >
             <quill-editor v-model="form.goods_introduce"></quill-editor>
           </el-form-item>
         </el-tab-pane>
@@ -176,6 +209,12 @@ export default {
       const res = await this.$http.post(`goods`, this.form);
       //回到商品列表页
       this.$router.push({ path: "goods" });
+      // console.log(res);
+      if (res.data.meta.status === 201) {
+        this.$message.success(res.data.meta.msg);
+      } else {
+        this.$message.error(res.data.meta.msg);
+      }
     },
     //图片上传时得相关方法
     //file形参里面是当前操作得图片得相关信息
@@ -261,5 +300,8 @@ export default {
 }
 .ql-editor {
   min-height: 300px;
+}
+.add {
+  margin-bottom: 10px;
 }
 </style>

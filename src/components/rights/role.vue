@@ -14,7 +14,11 @@
       <el-table-column type="expand" width="50">
         <template slot-scope="scope">
           <!-- 一级权限 -->
-          <el-row v-for="(item1,i) in scope.row.children" :key="i">
+          <el-row
+            :class="['bdbottom', i1 === 0 ? 'bdtop' : '', 'vcenter']"
+            v-for="(item1,i1) in scope.row.children"
+            :key="i1"
+          >
             <el-col :span="4">
               <!-- 传角色id 和 权限id -->
               <el-tag @close="deleRight(scope.row,item1.id)" closable>{{item1.authName}}</el-tag>
@@ -22,7 +26,11 @@
             </el-col>
             <el-col :span="20">
               <!-- 二级权限 -->
-              <el-row v-for="(item2,i) in item1.children" :key="i">
+              <el-row
+                :class="[i2 === 0 ? '' : 'bdtop', 'vcenter']"
+                v-for="(item2,i2) in item1.children"
+                :key="i2"
+              >
                 <el-col :span="4">
                   <el-tag
                     @close="deleRight(scope.row,item2.id)"
@@ -339,5 +347,18 @@ export default {
 }
 .rolelist {
   margin-top: 15px;
+}
+.el-tag {
+  margin: 7px;
+}
+.bdtop {
+  border-top: 1px solid #eee;
+}
+.bdbottom {
+  border-bottom: 1px solid #eee;
+}
+.vcenter {
+  display: flex;
+  align-items: center;
 }
 </style>
