@@ -216,7 +216,7 @@ export default {
         this.$message({
           type: "error",
           message: res.data.meta.msg,
-        });
+        }); 
       }
     },
     //编辑用户 - 发送请求
@@ -297,7 +297,7 @@ export default {
       this.dialogFormVisibleAdd = true;
     },
     //清空搜索框 重新获取数据
-    loadUserList() {
+     () {
       this.getUserList();
     },
     //搜索用户
