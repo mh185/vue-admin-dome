@@ -8,4 +8,4 @@
 -- 名称admin --密码123456
 ---
 #### 主要技术
-- Vue，Vue-router
+- Vue，Vue-router，Axios
